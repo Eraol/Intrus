@@ -1,0 +1,64 @@
+# Mac files
+.DS_Store
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+*.txt
+libs/
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+project.properties
+
+*.pydevproject
+.project
+.metadata
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpathtmp/**
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
