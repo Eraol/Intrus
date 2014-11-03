@@ -17,7 +17,7 @@ public class Data {
 
 	Vector<Integer> ids; // liste des ids de toutes les images
 	Vector<String> tags; // liste des tags possibles
-	Map<String, Set<Integer> > map; // tags et images associées à chacun
+	Map<String, Set<Integer> > map; // tags et images associ√©es √† chacun
 
 
 	public Data(Context context) throws XmlPullParserException, IOException{
@@ -32,43 +32,43 @@ public class Data {
 		int currentId=-1;
 		Set<String> allTags = new HashSet(); // liste des tags (sans doublon)
 
-		// Récupérer le fichier xml
+		// RÔøΩcupÔøΩrer le fichier xml
 		XmlResourceParser xpp = context.getResources().getXml(R.xml.data);
 
-		//début de l'analyse du xml
+		//dÔøΩbut de l'analyse du xml
 		xpp.next();
 		int eventType = xpp.getEventType();
 		while (eventType != XmlPullParser.END_DOCUMENT){// tant que pas fini...
 			if(eventType == XmlPullParser.START_TAG){
-				if ("image".equals(xpp.getName())){// début d'une nouvelle image
-					currentId = context.getResources().getIdentifier( // on récupère l'id
+				if ("image".equals(xpp.getName())){// d√©but d'une nouvelle image
+					currentId = context.getResources().getIdentifier( // on r√©cup√®re l'id
 							xpp.getAttributeValue(null,"id"), "drawable", context.getPackageName());
 					ids.add(currentId);
 				}
 			} else if(eventType == XmlPullParser.END_TAG) { // fin d'une image
 				if ("image".equals(xpp.getName())){ 
-					String[] content = text.split(","); // on découpe les tags
+					String[] content = text.split(","); // on d√©coupe les tags
 					for(String s : content){
-						setTag(currentId,s.trim()); // et on les ajoutes aux donnnées
-						allTags.add(s); // ainsi qu'à la liste des tags
+						setTag(currentId,s.trim()); // et on les ajoutes aux donnn√©es
+						allTags.add(s); // ainsi qu'√† la liste des tags
 					}
 				}
 			} else if(eventType == XmlPullParser.TEXT) {
-				text = xpp.getText(); // On met le text de coté pour la fin de la balise.
+				text = xpp.getText(); // On met le text de cot√© pour la fin de la balise.
 			}
 			eventType = xpp.next(); // au suivant !
 		}
 
-		tags.addAll(allTags); // On remplit la liste des tags. Les doublons ont été évités.
+		tags.addAll(allTags); // On remplit la liste des tags. Les doublons ont √©t√© √©vit√©s.
 	}
 
 	public void setTag(int id, String tag){
 		Set<Integer> set = map.get(tag); // set : images avec le tag
-		if (set == null){ // première image du tag
-			set = new HashSet<Integer>(); // créer l'ensemble
+		if (set == null){ // premi√®re image du tag
+			set = new HashSet<Integer>(); // cr√©er l'ensemble
 			map.put(tag, set); // et l'associer au tag
 		}
-		set.add(id); // ajout de l'image à la liste pour ce tag.	
+		set.add(id); // ajout de l'image √† la liste pour ce tag.	
 	}
 
 	public Object getRandom(Vector v){

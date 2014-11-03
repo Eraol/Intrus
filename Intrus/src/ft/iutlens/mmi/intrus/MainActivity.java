@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		try { // chargement des données
+		try { // chargement des donn√©es
 			data = new Data(this);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
 			}
 
 			public void onFinish() {
-				((TextView) findViewById(R.id.countdown)).setText("Terminé !");
+				((TextView) findViewById(R.id.countdown)).setText("Termin√© !");
 				running = false;
 			}
 		}.start();
@@ -75,10 +75,10 @@ public class MainActivity extends Activity {
 			int answer=0;
 			while (answer<4 && view.getId() != imageId[answer]) ++answer; //cherche l'indice du bouton
 
-			if (question.isCorrect(answer)){ //bonne réponse
+			if (question.isCorrect(answer)){ //bonne r√©ponse
 				setScore(score+1);
 				setQuestion(data.getNextQuestion()); //question suivante			
-			} else {
+			} else { //mauvaise r√©ponse
 				setScore(score-1);
 			}			
 		}
