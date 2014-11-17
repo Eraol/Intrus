@@ -1,23 +1,23 @@
 <set>
-  <image id="bb">bar,horizontal,blue</image>
-  <image id="bj">bar,horizontal,yellow</image>
-  <image id="br">bar,horizontal,red</image>
-  <image id="bv">bar,horizontal,green</image>
+  <image id="bb">1,bar,horizontal,blue</image>
+  <image id="bj">1,bar,horizontal,yellow</image>
+  <image id="br">1,bar,horizontal,red</image>
+  <image id="bv">1,bar,horizontal,green</image>
 
-  <image id="ib">bar,vertical,blue</image>
-  <image id="ij">bar,vertical,yellow</image>
-  <image id="ir">bar,vertical,red</image>
-  <image id="iv">bar,vertical,green</image>
+  <image id="ib">1,bar,vertical,blue</image>
+  <image id="ij">1,bar,vertical,yellow</image>
+  <image id="ir">1,bar,vertical,red</image>
+  <image id="iv">1,bar,vertical,green</image>
 
-  <image id="rb">disk,blue</image>
-  <image id="rj">disk,yellow</image>
-  <image id="rr">disk,red</image>
-  <image id="rv">disk,green</image>
+  <image id="rb">1,disk,blue</image>
+  <image id="rj">1,disk,yellow</image>
+  <image id="rr">1,disk,red</image>
+  <image id="rv">1,disk,green</image>
 
-  <image id="tb">triangle,blue</image>
-  <image id="tj">triangle,yellow</image>
-  <image id="tr">triangle,red</image>
-  <image id="tv">triangle,green</image>
+  <image id="tb">1,triangle,blue</image>
+  <image id="tj">1,triangle,yellow</image>
+  <image id="tr">1,triangle,red</image>
+  <image id="tv">1,triangle,green</image>
   
   <image id="bb2">2,bar,horizontal,blue</image>
   <image id="bj2">2,bar,horizontal,yellow</image>
