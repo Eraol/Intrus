@@ -88,6 +88,9 @@ public class Data {
 		int count = 0;
 		int essai = 3;
 
+		int best =5;
+		Question bestQuestion = null;
+
 		while (count != 1 && essai>0){
 			--essai;
 
@@ -121,8 +124,13 @@ public class Data {
 				if (intrus[i] != null) ++count;
 			}
 
+			if (count < best) {
+				best = count;
+				bestQuestion = new Question(image,intrus);
+			}
+
 		}
 
-		return new Question(image,intrus);
+		return bestQuestion;
 	}
 }

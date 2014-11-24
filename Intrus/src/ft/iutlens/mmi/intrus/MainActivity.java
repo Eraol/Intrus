@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		for(int i=0; i < 4; ++i){ //affiche les images
 			((ImageButton) findViewById(imageId[i])).setImageResource(question.id[i]);
 		}
-		Log.d("Explain",question.explain());
+		// Log.d("Explain",question.explain());
 
 	}
 
