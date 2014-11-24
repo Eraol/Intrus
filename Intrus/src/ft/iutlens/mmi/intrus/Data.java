@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 
@@ -32,10 +33,10 @@ public class Data {
 		int currentId=-1;
 		Set<String> allTags = new HashSet(); // liste des tags (sans doublon)
 
-		// R�cup�rer le fichier xml
+		// Récupérer le fichier xml
 		XmlResourceParser xpp = context.getResources().getXml(R.xml.data);
 
-		//d�but de l'analyse du xml
+		//début de l'analyse du xml
 		xpp.next();
 		int eventType = xpp.getEventType();
 		while (eventType != XmlPullParser.END_DOCUMENT){// tant que pas fini...
@@ -82,7 +83,7 @@ public class Data {
 	public Question getNextQuestion(){
 
 		int[] image = new int[4]; // ids choisis (instanciation)
-		boolean[] intrus = new boolean[4]; 
+		String[] intrus = null; 
 
 		int count = 0;
 		int essai = 3;
@@ -103,19 +104,21 @@ public class Data {
 				else image[i] = (Integer) getRandom(without) ; //tirage d'une image sans
 			}
 
-
-			for(Set<Integer> set : map.values()) { //recherche pour chaque tag
+			intrus = new String[4]; 
+			for(Entry<String, Set<Integer> > entry  : map.entrySet()) { //recherche pour chaque tag
+				Set<Integer> set = entry.getValue();
+				String key = entry.getKey();
 				count = 0;
 				int last = -1; // indice de l'intrus
 				for(int i =0; i<4;++i){ // compte le nombre d'apparition du tag sur les 4 images
 					if (set.contains(image[i])) ++count; else last = i;
 				}
-				if (count == 3) intrus[last] = true; //ajout de l'intrus s'il existe (3 tags sur 4 images)
+				if (count == 3) intrus[last] = (intrus[last] == null) ? key : (intrus[last] +","+ key); //ajout de l'intrus s'il existe (3 tags sur 4 images)
 			}
 
 			count = 0;
 			for(int i =0; i<4;++i){
-				if (intrus[i]) ++count;
+				if (intrus[i] != null) ++count;
 			}
 
 		}

@@ -3,6 +3,7 @@ package ft.iutlens.mmi.intrus;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class MainActivity extends Activity {
 		for(int i=0; i < 4; ++i){ //affiche les images
 			((ImageButton) findViewById(imageId[i])).setImageResource(question.id[i]);
 		}
+		Log.d("Explain",question.explain());
+
 	}
 
 	
@@ -80,6 +83,7 @@ public class MainActivity extends Activity {
 				setQuestion(data.getNextQuestion()); //question suivante			
 			} else { //mauvaise réponse
 				setScore(score-1);
+				Log.d("Explain",question.explain());
 			}			
 		}
 	}
