@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 			R.id.imageButton3,
 			R.id.imageButton4};
 	private int score;
+	private CountDownTimer countDown;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,8 @@ public class MainActivity extends Activity {
 		setScore(0);
 	
 		setQuestion(data.getNextQuestion());
-		new CountDownTimer(30000, 100) {
+		if (countDown != null) countDown.cancel();
+		countDown = new CountDownTimer(30000, 100) {
 
 			public void onTick(long millisUntilFinished) {
 				((TextView) findViewById(R.id.countdown)).setText("Reste : " + ((int)Math.round(millisUntilFinished / 100.0)/10.0));
