@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
 			R.id.imageButton4};
 	private int score;
 	private CountDownTimer countDown;
+	protected long timeLeft;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,16 @@ public class MainActivity extends Activity {
 
 		setContentView(R.layout.activity_main);
 
-		start();
+		if (savedInstanceState == null){ // pas de sauvegarde à restaurer, on démarre une partie
+			start(0,
+				  data.getNextQuestion(),
+				  30000);
+		} else { // sauvegarde présente, on reprend là où on en était
+			start(0, //score -- à modifier pour le restaurer
+				  new Question(savedInstanceState.getBundle("question")),//question
+				  30000); //durée en ms 
+		}
+		
 	}
 
 	private void setQuestion(Question question) {
@@ -54,20 +64,25 @@ public class MainActivity extends Activity {
 		((TextView) findViewById(R.id.score)).setText("Score : "+score);
 	}
 
-	private void start(){
-		setScore(0);
-	
-		setQuestion(data.getNextQuestion());
+	private void start(int score, Question question, int duration){
+		setScore(score);
+		setQuestion(question);
+		startCountDown(duration);
+	}
+
+	public void startCountDown(long duration) {
 		if (countDown != null) countDown.cancel();
-		countDown = new CountDownTimer(30000, 100) {
+		countDown = new CountDownTimer(duration, 100) {
 
 			public void onTick(long millisUntilFinished) {
+				timeLeft = millisUntilFinished; //sauvegarde le temps restant dans timeLeft;
 				((TextView) findViewById(R.id.countdown)).setText("Reste : " + ((int)Math.round(millisUntilFinished / 100.0)/10.0));
 			}
 
 			public void onFinish() {
 				((TextView) findViewById(R.id.countdown)).setText("Terminé !");
 				running = false;
+				countDown = null;
 			}
 		}.start();
 		running = true;
@@ -75,7 +90,7 @@ public class MainActivity extends Activity {
 
 	public void onClick(View view){
 		if (!running){
-			start();
+			start(0, data.getNextQuestion(), 30000);
 		} else {
 			int answer=0;
 			while (answer<4 && view.getId() != imageId[answer]) ++answer; //cherche l'indice du bouton
@@ -89,4 +104,34 @@ public class MainActivity extends Activity {
 			}			
 		}
 	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) { //sauvegarde de l'état de l'activité
+		super.onSaveInstanceState(outState);
+		
+		outState.putBundle("question", question.toBundle()); 
+		     //question est un objet, on lui demande donc de se placer lui-même dans un bundle
+		     //que l'on inclus dans la sauvegarde
+		
+		//ajoutez vos propre sauvegardes
+	}
+
+	@Override
+	protected void onStop() { //si l'activité passe en pause ...
+		super.onPause();
+		
+		if (countDown != null) countDown.cancel(); // arrêt du timer
+		countDown = null;
+	}
+
+	@Override
+	protected void onRestart() { //si l'activité redevient active ...
+		super.onResume();
+		
+		if (running && countDown == null){
+			startCountDown(timeLeft); //redémarrage du timer si nécessaire
+		}	
+	}
+	
+	
 }
