@@ -3,6 +3,7 @@ package ft.iutlens.mmi.intrus;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;
+import android.util.Log;
 
 public class Data {
 
@@ -59,9 +61,25 @@ public class Data {
 			}
 			eventType = xpp.next(); // au suivant !
 		}
+		
+		int max = ids.size();
+		
+		Iterator<Entry<String, Set<Integer>>> it  = map.entrySet().iterator();
+		while(it.hasNext()){
+				Entry<String, Set<Integer>> entry = it.next();
+				int size = entry.getValue().size();
+				if (size < 3 || size == max){ // Si un tag ne permet pas de créer une question,
+					Log.e("Data","Tag inutile dans le xml : "+entry.getKey());
+					allTags.remove(entry.getKey()); // on le retire
+					it.remove();
+				}
+		}
+		
 
-		tags.addAll(allTags); // On remplit la liste des tags. Les doublons ont été évités.
+		tags.addAll(allTags);
+		
 	}
+
 
 	public void setTag(int id, String tag){
 		Set<Integer> set = map.get(tag); // set : images avec le tag
